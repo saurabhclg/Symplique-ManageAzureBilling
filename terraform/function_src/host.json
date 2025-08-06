@@ -1,0 +1,21 @@
+{
+  "version": "2.0",
+  "logging": {
+    "applicationInsights": {
+      "samplingSettings": {
+        "isEnabled": true,
+        "maxTelemetryItemsPerSecond": 5
+      }
+    },
+    "logLevel": {
+      "Function.TimerArchiveFunction": "Information",
+      "Function.HttpGetRecordFunction": "Information",
+      "default": "Warning"
+    }
+  },
+  "extensionBundle": {
+    "id": "Microsoft.Azure.Functions.ExtensionBundle",
+    "version": "[2.*, 3.0.0)"
+  }
+}
+
