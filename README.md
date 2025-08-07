@@ -17,15 +17,20 @@ terraform/
 
 📦.github
  ┗ 📂workflows
- ┃ ┗ 📜build.yaml
- 📦terraform
+ ┃ ┗ 📜build-deploy.yaml
+📦assets
+ ┣ 📜ChatTranscript.txt
+ ┗ 📜architecture-diagram.png
+📦terraform
  ┣ 📂env
  ┃ ┣ 📂int
  ┃ ┃ ┣ 📜backend.tf
- ┃ ┃ ┗ 📜main.tf
+ ┃ ┃ ┣ 📜main.tf
+ ┃ ┃ ┗ 📜provider.tf
  ┃ ┗ 📂prod
  ┃ ┃ ┣ 📜backend.tf
- ┃ ┃ ┗ 📜main.tf
+ ┃ ┃ ┣ 📜main.tf
+ ┃ ┃ ┗ 📜provider.tf
  ┣ 📂function_src
  ┃ ┣ 📂archive_billing_records
  ┃ ┃ ┣ 📜__init__.py
@@ -51,7 +56,7 @@ terraform/
 
 ---
 
-## ✨ 
+## ✨ Architecture Diagram
 
 ![Architecture Diagram](./assets/architecture-diagram.png)
 
