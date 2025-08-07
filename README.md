@@ -51,6 +51,13 @@ terraform/
 
 ---
 
+## ✨ 
+
+![Architecture Diagram](./assets/architecture-diagram.png)
+
+---
+
+
 ## ✨ Features
 
 - **Automated Infrastructure:** Deploy Cosmos DB, Blob Storage, Key Vault, and Function App
