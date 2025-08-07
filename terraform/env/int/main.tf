@@ -4,39 +4,42 @@ provider "azurerm" {
 
 module "cosmosdb" {
   source              = "../../modules/cosmosdb"
-  account_name        = "int-cosmosdb"    # replace per env
-  location            = var.location
-  resource_group      = var.resource_group_name
-  database_name       = "billingdb"
-  container_name      = "billingrecords"
+  account_name        = "prod-cosmosdb"
+  location            = "west-europe"
+  resource_group      = "prod-resource-group"
+  database_name       = "prod-billingdb"
+  container_name      = "prod-billingrecords"
 }
 
 module "blobstorage" {
   source                = "../../modules/blobstorage"
-  storage_account_name  = "intstorageacct" # replace per env
-  container_name        = "archive"
-  location              = var.location
-  resource_group_name   = var.resource_group_name
+  storage_account_name  = "prodstorageacct"
+  container_name        = "prod-archive"
+  location              = "west-europe"
+  resource_group_name   = "prod-resource-group"
 }
 
 module "keyvault" {
-  source = "../../modules/keyvault"
-  keyvault_name = "int-kv"
-  location = var.location
-  resource_group_name = var.resource_group_name
-  tenant_id = var.tenant_id
+  source                = "../../modules/keyvault"
+  keyvault_name         = "prod-kv"
+  location              = "west-europe"
+  resource_group_name   = "prod-resource-group"
+  tenant_id             = "00000000-0000-0000-0000-000000000000"
 }
 
 module "functions" {
   source                         = "../../modules/functions"
-  function_app_name              = var.function_app_name         # e.g. "int-fn-billing"
-  location                       = var.location
-  resource_group_name            = var.resource_group_name
+  function_app_name              = "prod-fn-billing"
+  location                       = "west-europe"
+  resource_group_name            = "prod-resource-group"
   storage_account_name           = module.blobstorage.storage_account_name
   storage_container_name         = "function-code"
-  source_code_path               = "${path.module}/../../function.zip"  # Path to zipped functions
-  cosmosdb_connection_string     = var.cosmosdb_connection_string
-  blob_connection_string         = var.blob_connection_string
-  threshold_days                 = var.threshold_days
-  tags                           = var.tags
+  source_code_path               = "${path.module}/../../function.zip"
+  cosmosdb_connection_string     = "AccountEndpoint=https://prod-cosmosdb.documents.azure.com:443/;AccountKey=prodDummyKey1234567890==;Database=prod-billingdb;"
+  blob_connection_string         = "DefaultEndpointsProtocol=https;AccountName=prodstorageacct;AccountKey=prodStorageDummyKey1234567890==;EndpointSuffix=core.windows.net"
+  threshold_days                 = 30
+  tags                           = {
+    environment = "prod"
+    owner       = "dummy
+  }
 }

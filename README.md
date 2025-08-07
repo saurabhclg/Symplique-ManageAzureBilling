@@ -14,6 +14,39 @@ terraform/
         archive_billing_records/  # Timer-triggered archival function
         get_billing_record/       # HTTP-triggered retrieval function
     module/                 # Reusable Terraform modules
+
+📦.github
+ ┗ 📂workflows
+ ┃ ┗ 📜build.yaml
+ 📦terraform
+ ┣ 📂env
+ ┃ ┣ 📂int
+ ┃ ┃ ┣ 📜backend.tf
+ ┃ ┃ ┗ 📜main.tf
+ ┃ ┗ 📂prod
+ ┃ ┃ ┣ 📜backend.tf
+ ┃ ┃ ┗ 📜main.tf
+ ┣ 📂function_src
+ ┃ ┣ 📂archive_billing_records
+ ┃ ┃ ┣ 📜__init__.py
+ ┃ ┃ ┗ 📜function.json
+ ┃ ┣ 📂get_billing_record
+ ┃ ┃ ┣ 📜__init__.py
+ ┃ ┃ ┗ 📜function.json
+ ┃ ┗ 📜host.json
+ ┗ 📂module
+ ┃ ┣ 📂blobstorage
+ ┃ ┃ ┣ 📜main.tf
+ ┃ ┃ ┗ 📜variables.tf
+ ┃ ┣ 📂cosmosdb
+ ┃ ┃ ┣ 📜main.tf
+ ┃ ┃ ┗ 📜variables.tf
+ ┃ ┣ 📂functions
+ ┃ ┃ ┣ 📜main.tf
+ ┃ ┃ ┗ 📜variables.tf
+ ┃ ┗ 📂keyvault
+ ┃ ┃ ┣ 📜main.tf
+ ┃ ┃ ┗ 📜variables.tf
 ```
 
 ---

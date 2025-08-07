@@ -12,19 +12,24 @@ env:
   ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
 
 jobs:
-  terraform:
+  terraform-deploy:
     runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: terraform/envs/int
     steps:
-    - uses: actions/checkout@v4
+    - name: Checkout repository
+      uses: actions/checkout@v4
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v3
     - name: Terraform Init
       run: terraform init -backend-config=backend.tfvars
     - name: Terraform Validate
       run: terraform validate
+    - name: Run Checkov (Terraform SAST)
+      uses: bridgecrewio/checkov-action@v12
+      with:
+        directory: terraform/envs/int
     - name: Terraform Plan
       run: terraform plan -var-file=terraform.tfvars
     - name: Zip Azure Function code
@@ -35,5 +40,6 @@ jobs:
        cd ..
     - name: Terraform Apply
       if: github.ref == 'refs/heads/main'
-      run: terraform apply -auto-approve -var-file=terraform.tfvars
+      run: terraform apply -auto-approve
+      needs: terraform-plan
 
